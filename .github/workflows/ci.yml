@@ -41,6 +41,7 @@ jobs:
           (cd sut/web && pnpm lint)
           (cd tests/web && pnpm lint)
           (cd tests/mobile && pnpm lint)
+      - uses: hashicorp/setup-terraform@v3
       - name: Validate Terraform
         run: |
           terraform -chdir=infra init -backend=false -input=false
