@@ -1,0 +1,81 @@
+# Deployed AWS resources (2026-11-27T07:52:16Z)
+alb_url = "http://bank-qa-657273857.ap-southeast-2.elb.amazonaws.com"
+ecr_repositories = {
+  "accounts" = "<ACCOUNT_ID>.dkr.ecr.ap-southeast-2.amazonaws.com/bank-qa/accounts"
+  "chat" = "<ACCOUNT_ID>.dkr.ecr.ap-southeast-2.amazonaws.com/bank-qa/chat"
+  "transfers" = "<ACCOUNT_ID>.dkr.ecr.ap-southeast-2.amazonaws.com/bank-qa/transfers"
+  "web" = "<ACCOUNT_ID>.dkr.ecr.ap-southeast-2.amazonaws.com/bank-qa/web"
+}
+ecs_cluster = "bank-qa"
+rds_identifier = "bank-qa"
+-----------------------------------------------
+|              DescribeServices               |
++---------+----------+-------------+----------+
+| desired | running  |   service   | status   |
++---------+----------+-------------+----------+
+|  1      |  1       |  accounts   |  ACTIVE  |
+|  1      |  1       |  transfers  |  ACTIVE  |
+|  1      |  1       |  chat       |  ACTIVE  |
+|  1      |  1       |  web        |  ACTIVE  |
++---------+----------+-------------+----------+
+-----------------------------------------------------------------------------
+|                           DescribeLoadBalancers                           |
++-----------------------------------------------------+----------+----------+
+|                         dns                         |  name    |  state   |
++-----------------------------------------------------+----------+----------+
+|  bank-qa-657273857.ap-southeast-2.elb.amazonaws.com |  bank-qa |  active  |
++-----------------------------------------------------+----------+----------+
+----------------------------------------------------------------
+|                      DescribeDBInstances                     |
++---------------+-----------+----------+---------+-------------+
+|     class     |  engine   |   id     | public  |   status    |
++---------------+-----------+----------+---------+-------------+
+|  db.t4g.micro |  postgres |  bank-qa |  False  |  available  |
++---------------+-----------+----------+---------+-------------+
+--------------------------
+|       ListSecrets      |
++------------------------+
+|  bank-qa/database-url  |
+|  bank-qa/llm-config    |
++------------------------+
+arn:aws:ec2:ap-southeast-2:<ACCOUNT_ID>:subnet/subnet-0327fd25110231c0b
+arn:aws:ecs:ap-southeast-2:<ACCOUNT_ID>:service/bank-qa/web
+arn:aws:ecs:ap-southeast-2:<ACCOUNT_ID>:task-definition/bank-qa-web:1
+arn:aws:logs:ap-southeast-2:<ACCOUNT_ID>:log-group:/ecs/bank-qa/web
+arn:aws:secretsmanager:ap-southeast-2:<ACCOUNT_ID>:secret:bank-qa/llm-config-6Ao3Zx
+arn:aws:ec2:ap-southeast-2:<ACCOUNT_ID>:route-table/rtb-<ACCOUNT_ID>238fb
+arn:aws:ec2:ap-southeast-2:<ACCOUNT_ID>:security-group/sg-0540ea941cac35f93
+arn:aws:ec2:ap-southeast-2:<ACCOUNT_ID>:security-group/sg-03fb59dac40389bc5
+arn:aws:ec2:ap-southeast-2:<ACCOUNT_ID>:security-group/sg-04fac843935d5841d
+arn:aws:ec2:ap-southeast-2:<ACCOUNT_ID>:subnet/subnet-04fdf09a7c74244f8
+arn:aws:ecs:ap-southeast-2:<ACCOUNT_ID>:service/bank-qa/transfers
+arn:aws:ecs:ap-southeast-2:<ACCOUNT_ID>:task-definition/bank-qa-accounts:1
+arn:aws:elasticloadbalancing:ap-southeast-2:<ACCOUNT_ID>:listener/app/bank-qa/ebfa51bb016e0cf1/d019e4f33bd178eb
+arn:aws:elasticloadbalancing:ap-southeast-2:<ACCOUNT_ID>:loadbalancer/app/bank-qa/ebfa51bb016e0cf1
+arn:aws:elasticloadbalancing:ap-southeast-2:<ACCOUNT_ID>:targetgroup/bank-qa-web/4ef47406497c8018
+arn:aws:logs:ap-southeast-2:<ACCOUNT_ID>:log-group:/ecs/bank-qa/transfers
+arn:aws:rds:ap-southeast-2:<ACCOUNT_ID>:subgrp:bank-qa
+arn:aws:ec2:ap-southeast-2:<ACCOUNT_ID>:vpc/vpc-08f6356f5e130c605
+arn:aws:ecs:ap-southeast-2:<ACCOUNT_ID>:task-definition/bank-qa-transfers:1
+arn:aws:elasticloadbalancing:ap-southeast-2:<ACCOUNT_ID>:listener-rule/app/bank-qa/ebfa51bb016e0cf1/d019e4f33bd178eb/8fffa8522fa3c287
+arn:aws:ec2:ap-southeast-2:<ACCOUNT_ID>:internet-gateway/igw-07dce83b1279dba94
+arn:aws:ec2:ap-southeast-2:<ACCOUNT_ID>:subnet/subnet-093bca6bc4ca8f036
+arn:aws:ec2:ap-southeast-2:<ACCOUNT_ID>:subnet/subnet-0b1b3b52d2581d5b9
+arn:aws:ecr:ap-southeast-2:<ACCOUNT_ID>:repository/bank-qa/chat
+arn:aws:ecs:ap-southeast-2:<ACCOUNT_ID>:task-definition/bank-qa-chat:1
+arn:aws:ecr:ap-southeast-2:<ACCOUNT_ID>:repository/bank-qa/accounts
+arn:aws:ecr:ap-southeast-2:<ACCOUNT_ID>:repository/bank-qa/transfers
+arn:aws:ecs:ap-southeast-2:<ACCOUNT_ID>:service/bank-qa/chat
+arn:aws:ec2:ap-southeast-2:<ACCOUNT_ID>:subnet/subnet-0443fd731766a9716
+arn:aws:ecr:ap-southeast-2:<ACCOUNT_ID>:repository/bank-qa/web
+arn:aws:elasticloadbalancing:ap-southeast-2:<ACCOUNT_ID>:listener-rule/app/bank-qa/ebfa51bb016e0cf1/d019e4f33bd178eb/4c605fcd9231287e
+arn:aws:elasticloadbalancing:ap-southeast-2:<ACCOUNT_ID>:targetgroup/bank-qa-accounts/989e6797d6929de2
+arn:aws:elasticloadbalancing:ap-southeast-2:<ACCOUNT_ID>:targetgroup/bank-qa-transfers/7ebcd01c469226fb
+arn:aws:logs:ap-southeast-2:<ACCOUNT_ID>:log-group:/ecs/bank-qa/accounts
+arn:aws:logs:ap-southeast-2:<ACCOUNT_ID>:log-group:/ecs/bank-qa/chat
+arn:aws:rds:ap-southeast-2:<ACCOUNT_ID>:db:bank-qa
+arn:aws:secretsmanager:ap-southeast-2:<ACCOUNT_ID>:secret:bank-qa/database-url-zWgrnG
+arn:aws:ecs:ap-southeast-2:<ACCOUNT_ID>:cluster/bank-qa
+arn:aws:ecs:ap-southeast-2:<ACCOUNT_ID>:service/bank-qa/accounts
+arn:aws:elasticloadbalancing:ap-southeast-2:<ACCOUNT_ID>:listener-rule/app/bank-qa/ebfa51bb016e0cf1/d019e4f33bd178eb/9ef63a58e171e77f
+arn:aws:elasticloadbalancing:ap-southeast-2:<ACCOUNT_ID>:targetgroup/bank-qa-chat/7b9b84ea8ac04f7e

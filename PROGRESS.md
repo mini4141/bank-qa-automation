@@ -1,13 +1,13 @@
 # PROGRESS
 
-Resume from the first unticked item. Current phase: **2** (Phase 0 and 1 done; CI green, Pages live)
+Resume from the first unticked item. Current phase: **done** (all phases complete; AWS stack destroyed and verified)
 
 ## Phases
 - [x] Phase 0 scaffold
 - [x] Phase 1 local (proof/phase1-local)
-- [ ] Phase 2 AWS showcase (proof/phase2-cloud)
-- [ ] Phase 3 destroy (proof/phase3-destroy)
-- [ ] Phase 4 write-up (docs/PORTFOLIO.md)
+- [x] Phase 2 AWS showcase (proof/phase2-cloud)
+- [x] Phase 3 destroy (proof/phase3-destroy)
+- [x] Phase 4 write-up (docs/PORTFOLIO.md)
 
 ## Coverage matrix (SPECS §2)
 - [x] Test scenarios from requirements; functional + non-functional (Gherkin, traceability, Gatling)
@@ -31,12 +31,12 @@ Resume from the first unticked item. Current phase: **2** (Phase 0 and 1 done; C
 - [x] logs/mcp-ci-client.log, logs/k8s-api-job.log, docs/defects/DEF-001-fee-rounding.md
 
 ## Phase 2 proof (SPECS §10)
-- [ ] tests/allure-report-cloud, tests/llm-eval-bedrock/report.html, logs/drift-mock-vs-bedrock.json
-- [ ] screenshots 01-cloud-allure, 02-cloud-web-app, 03-bedrock-eval
-- [ ] resources.txt
+- [x] tests/allure-report-cloud, tests/llm-eval-bedrock/report.html, logs/drift-mock-vs-bedrock.json
+- [x] screenshots 01-cloud-allure, 02-cloud-web-app, 03-bedrock-eval
+- [x] resources.txt
 
 ## Phase 3 proof (SPECS §11)
-- [ ] terraform destroy; verify-destroyed.txt shows nothing billable
+- [x] terraform destroy; verify-destroyed.txt shows nothing billable
 
 ## Build items
 - [x] sut: accounts, transfers, web, inquiry-chat (+mock-llm), docker compose
@@ -47,5 +47,5 @@ Resume from the first unticked item. Current phase: **2** (Phase 0 and 1 done; C
 - [x] llm-eval (6 categories, drift baselines)
 - [x] mcp/qa-mcp-server + ci-client
 - [x] deploy/k8s + kind CI job
-- [ ] infra Terraform + deploy/destroy/verify scripts
+- [x] infra Terraform + deploy/destroy/verify scripts
 - [x] docs: test-strategy, traceability, exploratory-charters, defects (2), qa-report, AI_USAGE

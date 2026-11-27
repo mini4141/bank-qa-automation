@@ -34,3 +34,12 @@ def test_mock_embeddings_endpoint_is_openai_shaped():
     res = TestClient(mock_llm.app).post("/v1/embeddings", json={"model": "m", "input": ["hello", "world"]})
     assert [d["index"] for d in res.json()["data"]] == [0, 1]
     assert len(res.json()["data"][0]["embedding"]) == mock_llm.DIMENSIONS
+
+
+def test_a_refusal_never_carries_citations():
+    class Chatty(InProcessLLM):
+        def chat(self, messages):
+            return "I don't know based on our documents. Please contact support. [account-opening]"
+
+    result = RagIndex(Chatty(), CORPUS).answer("How do I open an account?")
+    assert result["citations"] == []

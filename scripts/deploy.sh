@@ -54,11 +54,4 @@ ACCOUNTS_URL="$alb/api/accounts" TRANSFERS_URL="$alb/api/transfers" scripts/seed
 
 [ "${1:-}" = "--no-tests" ] && exit 0
 
-rm -rf reports/allure-results
-failed=0
-for suite in api web perf; do
-  scripts/run-suite.sh "$suite" cloud > "reports/logs/cloud-$suite.log" 2>&1 || { echo "FAIL $suite"; failed=1; }
-done
-EVAL_ARGS="--record-baseline" scripts/run-suite.sh llm-eval cloud > reports/logs/cloud-llm-eval.log 2>&1 || { echo "FAIL llm-eval"; failed=1; }
-scripts/report.sh cloud
-exit $failed
+scripts/cloud-tests.sh

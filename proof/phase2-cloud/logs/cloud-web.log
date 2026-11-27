@@ -1,0 +1,15 @@
+
+Running 10 tests using 2 workers
+
+  ok  2 [webkit] › .features-gen\features\banking.feature.spec.js:6:7 › Online banking › Open an account via the UI @regression @web @REQ-WEB-1 @smoke (5.3s)
+  ok  1 [chromium] › .features-gen\features\banking.feature.spec.js:6:7 › Online banking › Open an account via the UI @regression @web @REQ-WEB-1 @smoke (7.1s)
+  ok  3 [webkit] › .features-gen\features\banking.feature.spec.js:12:7 › Online banking › Transfer money via the UI and see the fee @regression @web @REQ-WEB-2 (7.1s)
+  ok  4 [chromium] › .features-gen\features\banking.feature.spec.js:12:7 › Online banking › Transfer money via the UI and see the fee @regression @web @REQ-WEB-2 (6.8s)
+  ok  5 [webkit] › .features-gen\features\banking.feature.spec.js:20:7 › Online banking › The transaction list shows the transfer @regression @web @REQ-WEB-3 (9.4s)
+  ok  6 [chromium] › .features-gen\features\banking.feature.spec.js:20:7 › Online banking › The transaction list shows the transfer @regression @web @REQ-WEB-3 (9.2s)
+  ok  8 [chromium] › .features-gen\features\banking.feature.spec.js:27:7 › Online banking › The chat answer shows a citation link @regression @web @REQ-WEB-4 (4.3s)
+  ok  7 [webkit] › .features-gen\features\banking.feature.spec.js:27:7 › Online banking › The chat answer shows a citation link @regression @web @REQ-WEB-4 (9.3s)
+  ok  9 [chromium] › .features-gen\features\banking.feature.spec.js:33:7 › Online banking › Visual snapshot of the account page @regression @web @REQ-WEB-5 @visual (5.3s)
+  ok 10 [webkit] › .features-gen\features\banking.feature.spec.js:33:7 › Online banking › Visual snapshot of the account page @regression @web @REQ-WEB-5 @visual (13.2s)
+
+  10 passed (47.7s)

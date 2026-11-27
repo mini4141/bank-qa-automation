@@ -10,3 +10,6 @@ One line each: date, decision, reason.
 - 2026-11-27 | Python via `uv` pinned to 3.12 (host has 3.14) | Spec requires 3.12.
 - 2026-11-27 | `wrk` runs in a Docker image locally (no native Windows build) and natively (apt) in CI | Host is Windows.
 - 2026-11-27 | GitHub owner is `mini4141` (gh login); resource tag `Owner=alvieirvansyah` as required | CLAUDE.md tag rule.
+- 2026-11-27 | Bedrock chat model apac.amazon.nova-lite-v1:0 (Converse), embeddings Titan v2 | cheapest on-demand model available in ap-southeast-2, no Marketplace subscription.
+- 2026-11-27 | Pages deploy lives in ci.yml report job (no separate pages.yml); Playwright pinned 1.57.0 (playwright-bdd incompat with 1.65); CI on ubuntu-24.04
+- 2026-11-27 | RDS connection uses sslmode=no-verify | RDS Postgres 16 forces TLS; certificate verification skipped inside the VPC for the ephemeral showcase.

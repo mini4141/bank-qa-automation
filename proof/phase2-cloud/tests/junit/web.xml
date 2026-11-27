@@ -1,0 +1,26 @@
+<testsuites id="" name="" tests="10" failures="0" skipped="0" errors="0" time="47.72378200000001">
+<testsuite name="features\banking.feature.spec.js" timestamp="2026-11-27T07:49:11.603Z" hostname="chromium" tests="5" failures="0" skipped="0" time="32.835" errors="0">
+<testcase name="Online banking › Open an account via the UI" classname="features\banking.feature.spec.js" time="7.101">
+</testcase>
+<testcase name="Online banking › Transfer money via the UI and see the fee" classname="features\banking.feature.spec.js" time="6.849">
+</testcase>
+<testcase name="Online banking › The transaction list shows the transfer" classname="features\banking.feature.spec.js" time="9.227">
+</testcase>
+<testcase name="Online banking › The chat answer shows a citation link" classname="features\banking.feature.spec.js" time="4.33">
+</testcase>
+<testcase name="Online banking › Visual snapshot of the account page" classname="features\banking.feature.spec.js" time="5.328">
+</testcase>
+</testsuite>
+<testsuite name="features\banking.feature.spec.js" timestamp="2026-11-27T07:49:11.603Z" hostname="webkit" tests="5" failures="0" skipped="0" time="44.307" errors="0">
+<testcase name="Online banking › Open an account via the UI" classname="features\banking.feature.spec.js" time="5.274">
+</testcase>
+<testcase name="Online banking › Transfer money via the UI and see the fee" classname="features\banking.feature.spec.js" time="7.142">
+</testcase>
+<testcase name="Online banking › The transaction list shows the transfer" classname="features\banking.feature.spec.js" time="9.407">
+</testcase>
+<testcase name="Online banking › The chat answer shows a citation link" classname="features\banking.feature.spec.js" time="9.279">
+</testcase>
+<testcase name="Online banking › Visual snapshot of the account page" classname="features\banking.feature.spec.js" time="13.205">
+</testcase>
+</testsuite>
+</testsuites>

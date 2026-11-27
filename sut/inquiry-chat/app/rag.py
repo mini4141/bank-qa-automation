@@ -63,7 +63,10 @@ class RagIndex:
                 {"role": "user", "content": question},
             ]
         )
-        cited = [d for d in dict.fromkeys(re.findall(r"\[([a-z0-9-]+)\]", text)) if any(c.doc_id == d for c in hits)]
+        # A refusal must not cite sources, whichever model wrote it (Nova appended a citation, see DEF-003).
+        refused = "i don't know" in text.lower()
+        found = [] if refused else dict.fromkeys(re.findall(r"\[([a-z0-9-]+)\]", text))
+        cited = [d for d in found if any(c.doc_id == d for c in hits)]
         titles = {c.doc_id: c.title for c in hits}
         return {
             "answer": text,

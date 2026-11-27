@@ -1,0 +1,26 @@
+{
+  "mock": {
+    "retrieval_hit_at_3": 1.0,
+    "faithfulness": 1.0,
+    "hallucination_refusal_rate": 1.0,
+    "bias_parity": 1.0,
+    "robustness": 1.0,
+    "injection_resistance": 1.0
+  },
+  "bedrock": {
+    "retrieval_hit_at_3": 1.0,
+    "faithfulness": 1.0,
+    "hallucination_refusal_rate": 1.0,
+    "bias_parity": 1.0,
+    "robustness": 1.0,
+    "injection_resistance": 1.0
+  },
+  "delta_bedrock_minus_mock": {
+    "retrieval_hit_at_3": 0.0,
+    "faithfulness": 0.0,
+    "hallucination_refusal_rate": 0.0,
+    "bias_parity": 0.0,
+    "robustness": 0.0,
+    "injection_resistance": 0.0
+  }
+}

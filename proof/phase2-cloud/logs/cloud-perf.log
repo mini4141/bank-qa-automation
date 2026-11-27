@@ -1,0 +1,212 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -------------------------< bank.qa:perf-tests >-------------------------
+[INFO] Building perf-tests 1.0.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> gatling:4.12.0:test (default-cli) > test-compile @ perf-tests >>>
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ perf-tests ---
+[INFO] skip non existing resourceDirectory C:\Users\ThinkPad\Pictures\mmvie-v2\reqs\12-bank-qa-automation\tests\perf\src\main\resources
+[INFO] 
+[INFO] --- compiler:3.13.0:compile (default-compile) @ perf-tests ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ perf-tests ---
+[INFO] skip non existing resourceDirectory C:\Users\ThinkPad\Pictures\mmvie-v2\reqs\12-bank-qa-automation\tests\perf\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ perf-tests ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] <<< gatling:4.12.0:test (default-cli) < test-compile @ perf-tests <<<
+[INFO] 
+[INFO] 
+[INFO] --- gatling:4.12.0:test (default-cli) @ perf-tests ---
+[INFO] Running simulation bank.perf.TransferSimulation.
+14:50:05,587 |-INFO in ch.qos.logback.classic.LoggerContext[default] - This is logback-classic version 1.5.17
+14:50:05,589 |-INFO in ch.qos.logback.classic.util.ContextInitializer@1534f01b - No custom configurators were discovered as a service.
+14:50:05,589 |-INFO in ch.qos.logback.classic.util.ContextInitializer@1534f01b - Trying to configure with ch.qos.logback.classic.joran.SerializedModelConfigurator
+14:50:05,591 |-INFO in ch.qos.logback.classic.util.ContextInitializer@1534f01b - Constructed configurator of type class ch.qos.logback.classic.joran.SerializedModelConfigurator
+14:50:05,597 |-INFO in ch.qos.logback.classic.LoggerContext[default] - Could NOT find resource [logback-test.scmo]
+14:50:05,597 |-INFO in ch.qos.logback.classic.LoggerContext[default] - Could NOT find resource [logback.scmo]
+14:50:05,608 |-INFO in ch.qos.logback.classic.util.ContextInitializer@1534f01b - ch.qos.logback.classic.joran.SerializedModelConfigurator.configure() call lasted 7 milliseconds. ExecutionStatus=INVOKE_NEXT_IF_ANY
+14:50:05,608 |-INFO in ch.qos.logback.classic.util.ContextInitializer@1534f01b - Trying to configure with ch.qos.logback.classic.util.DefaultJoranConfigurator
+14:50:05,609 |-INFO in ch.qos.logback.classic.util.ContextInitializer@1534f01b - Constructed configurator of type class ch.qos.logback.classic.util.DefaultJoranConfigurator
+14:50:05,610 |-INFO in ch.qos.logback.classic.LoggerContext[default] - Could NOT find resource [logback-test.xml]
+14:50:05,615 |-INFO in ch.qos.logback.classic.LoggerContext[default] - Found resource [logback.xml] at [jar:file:/C:/Users/ThinkPad/.m2/repository/io/gatling/gatling-maven-plugin/4.12.0/gatling-maven-plugin-4.12.0.jar!/logback.xml]
+14:50:05,627 |-INFO in ConfigurationWatchList(mainURL=jar:file:/C:/Users/ThinkPad/.m2/repository/io/gatling/gatling-maven-plugin/4.12.0/gatling-maven-plugin-4.12.0.jar!/logback.xml, fileWatchList={}, urlWatchList=[}) - URL [jar:file:/C:/Users/ThinkPad/.m2/repository/io/gatling/gatling-maven-plugin/4.12.0/gatling-maven-plugin-4.12.0.jar!/logback.xml] is not of type file
+14:50:05,704 |-WARN in ch.qos.logback.classic.joran.action.LevelAction - <level> element is deprecated. Near [level] on line 12
+14:50:05,704 |-WARN in ch.qos.logback.classic.joran.action.LevelAction - Please use "level" attribute within <logger> or <root> elements instead.
+14:50:05,796 |-INFO in ch.qos.logback.core.model.processor.AppenderModelHandler - Processing appender named [CONSOLE]
+14:50:05,796 |-INFO in ch.qos.logback.core.model.processor.AppenderModelHandler - About to instantiate appender of type [ch.qos.logback.core.ConsoleAppender]
+14:50:05,812 |-INFO in ch.qos.logback.core.model.processor.ImplicitModelHandler - Assuming default type [ch.qos.logback.classic.encoder.PatternLayoutEncoder] for [encoder] property
+14:50:05,895 |-INFO in ch.qos.logback.core.ConsoleAppender[CONSOLE] - BEWARE: Writing to the console can be very slow. Avoid logging to the 
+14:50:05,895 |-INFO in ch.qos.logback.core.ConsoleAppender[CONSOLE] - console in production environments, especially in high volume systems.
+14:50:05,895 |-INFO in ch.qos.logback.core.ConsoleAppender[CONSOLE] - See also https://logback.qos.ch/codes.html#slowConsole
+14:50:05,895 |-INFO in ch.qos.logback.classic.model.processor.LevelModelHandler - ROOT level set to WARN
+14:50:05,896 |-INFO in ch.qos.logback.core.model.processor.AppenderRefModelHandler - Attaching appender named [CONSOLE] to Logger[ROOT]
+14:50:05,897 |-INFO in ch.qos.logback.core.model.processor.DefaultProcessor@1b1473ab - End of configuration.
+14:50:05,897 |-INFO in ch.qos.logback.classic.joran.JoranConfigurator@2f7c2f4f - Registering current configuration as safe fallback point
+14:50:05,897 |-INFO in ch.qos.logback.classic.util.ContextInitializer@1534f01b - ch.qos.logback.classic.util.DefaultJoranConfigurator.configure() call lasted 288 milliseconds. ExecutionStatus=DO_NOT_INVOKE_NEXT_IF_ANY
+
+Simulation bank.perf.TransferSimulation started...
+
+========================================================================================================================
+2026-11-27 07:50:14 GMT                                                                               5s elapsed
+---- Requests -----------------------------------------------------------------------|---Total---|-----OK----|----KO----
+> Global                                                                             |        14 |        14 |         0
+> open sender                                                                        |         4 |         4 |         0
+> open receiver                                                                      |         3 |         3 |         0
+> fund sender                                                                        |         3 |         3 |         0
+> transfer                                                                           |         2 |         2 |         0
+> get account                                                                        |         2 |         2 |         0
+
+---- Open, fund and transfer -------------------------------------------------------------------------------------------
+[###########||||||||||||                                                                                         ]   10%
+          waiting:        16 / active:         2  / done:         2
+========================================================================================================================
+
+
+========================================================================================================================
+2026-11-27 07:50:19 GMT                                                                               9s elapsed
+---- Requests -----------------------------------------------------------------------|---Total---|-----OK----|----KO----
+> Global                                                                             |        31 |        31 |         0
+> open sender                                                                        |         7 |         7 |         0
+> open receiver                                                                      |         6 |         6 |         0
+> fund sender                                                                        |         6 |         6 |         0
+> transfer                                                                           |         6 |         6 |         0
+> get account                                                                        |         6 |         6 |         0
+
+---- Open, fund and transfer -------------------------------------------------------------------------------------------
+[#################################||||||                                                                         ]   30%
+          waiting:        13 / active:         1  / done:         6
+========================================================================================================================
+
+
+========================================================================================================================
+2026-11-27 07:50:24 GMT                                                                              15s elapsed
+---- Requests -----------------------------------------------------------------------|---Total---|-----OK----|----KO----
+> Global                                                                             |        48 |        48 |         0
+> open sender                                                                        |        10 |        10 |         0
+> open receiver                                                                      |        10 |        10 |         0
+> fund sender                                                                        |        10 |        10 |         0
+> transfer                                                                           |         9 |         9 |         0
+> get account                                                                        |         9 |         9 |         0
+
+---- Open, fund and transfer -------------------------------------------------------------------------------------------
+[##################################################||||||                                                        ]   45%
+          waiting:        10 / active:         1  / done:         9
+========================================================================================================================
+
+
+========================================================================================================================
+2026-11-27 07:50:29 GMT                                                                              20s elapsed
+---- Requests -----------------------------------------------------------------------|---Total---|-----OK----|----KO----
+> Global                                                                             |        64 |        64 |         0
+> open sender                                                                        |        14 |        14 |         0
+> open receiver                                                                      |        13 |        13 |         0
+> fund sender                                                                        |        13 |        13 |         0
+> transfer                                                                           |        12 |        12 |         0
+> get account                                                                        |        12 |        12 |         0
+
+---- Open, fund and transfer -------------------------------------------------------------------------------------------
+[###################################################################||||||||||||                                 ]   60%
+          waiting:         6 / active:         2  / done:        12
+========================================================================================================================
+
+
+========================================================================================================================
+2026-11-27 07:50:34 GMT                                                                              25s elapsed
+---- Requests -----------------------------------------------------------------------|---Total---|-----OK----|----KO----
+> Global                                                                             |        81 |        81 |         0
+> open sender                                                                        |        17 |        17 |         0
+> open receiver                                                                      |        16 |        16 |         0
+> fund sender                                                                        |        16 |        16 |         0
+> transfer                                                                           |        16 |        16 |         0
+> get account                                                                        |        16 |        16 |         0
+
+---- Open, fund and transfer -------------------------------------------------------------------------------------------
+[#########################################################################################||||||                 ]   80%
+          waiting:         3 / active:         1  / done:        16
+========================================================================================================================
+
+
+========================================================================================================================
+2026-11-27 07:50:39 GMT                                                                              30s elapsed
+---- Requests -----------------------------------------------------------------------|---Total---|-----OK----|----KO----
+> Global                                                                             |        98 |        98 |         0
+> open sender                                                                        |        20 |        20 |         0
+> open receiver                                                                      |        20 |        20 |         0
+> fund sender                                                                        |        20 |        20 |         0
+> transfer                                                                           |        19 |        19 |         0
+> get account                                                                        |        19 |        19 |         0
+
+---- Open, fund and transfer -------------------------------------------------------------------------------------------
+[##########################################################################################################||||||]   95%
+          waiting:         0 / active:         1  / done:        19
+========================================================================================================================
+
+
+========================================================================================================================
+2026-11-27 07:50:39 GMT                                                                              30s elapsed
+---- Requests -----------------------------------------------------------------------|---Total---|-----OK----|----KO----
+> Global                                                                             |       100 |       100 |         0
+> open sender                                                                        |        20 |        20 |         0
+> open receiver                                                                      |        20 |        20 |         0
+> fund sender                                                                        |        20 |        20 |         0
+> transfer                                                                           |        20 |        20 |         0
+> get account                                                                        |        20 |        20 |         0
+
+---- Open, fund and transfer -------------------------------------------------------------------------------------------
+[################################################################################################################]  100%
+          waiting:         0 / active:         0  / done:        20
+========================================================================================================================
+
+Parsing log file(s)...
+Parsing log file(s) done in 0s.
+Generating reports...
+
+========================================================================================================================
+---- Global Information -------------------------------------------------------------|---Total---|-----OK----|----KO----
+> request count                                                                      |       100 |       100 |         0
+> min response time (ms)                                                             |       383 |       383 |         -
+> max response time (ms)                                                             |       862 |       862 |         -
+> mean response time (ms)                                                            |       481 |       481 |         -
+> response time std deviation (ms)                                                   |       160 |       160 |         -
+> response time 50th percentile (ms)                                                 |       401 |       401 |         -
+> response time 75th percentile (ms)                                                 |       424 |       424 |         -
+> response time 95th percentile (ms)                                                 |       814 |       814 |         -
+> response time 99th percentile (ms)                                                 |       862 |       862 |         -
+> mean throughput (rps)                                                              |      3.23 |      3.23 |         -
+---- Response Time Distribution ----------------------------------------------------------------------------------------
+> OK: t < 800 ms                                                                                             92    (92%)
+> OK: 800 ms <= t < 1200 ms                                                                                   8     (8%)
+> OK: t >= 1200 ms                                                                                            0     (0%)
+> KO                                                                                                          0     (0%)
+========================================================================================================================
+
+Reports generated, please open the following file: file:///C:/Users/ThinkPad/Pictures/mmvie-v2/reqs/12-bank-qa-automation/reports/gatling/transfersimulation-20261127075008555/index.html
+transfer: 95th percentile of response time is less than 500.0 : true (actual : 461.0)
+Global: percentage of failed events is less than 1.0 : true (actual : 0.0)
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  38.057 s
+[INFO] Finished at: 2026-11-27T14:50:40+07:00
+[INFO] ------------------------------------------------------------------------
+allure: passed Gatling assertion: transfer: 95th percentile of response time is less than 500.0
+allure: passed Gatling assertion: Global: percentage of failed events is less than 1.0
+Running 10s test @ http://bank-qa-657273857.ap-southeast-2.elb.amazonaws.com/api/accounts/accounts/d6b420ad-08b4-486e-ab19-17dd2ae1dc21
+  2 threads and 20 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency   400.95ms   13.13ms 454.73ms   73.25%
+    Req/Sec    27.52     15.95    90.00     67.55%
+  Latency Distribution
+     50%  396.89ms
+     75%  408.83ms
+     90%  418.28ms
+     99%  436.54ms
+  471 requests in 10.03s, 113.15KB read
+Requests/sec:     46.98
+Transfer/sec:     11.29KB

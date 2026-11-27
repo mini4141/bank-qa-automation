@@ -4,6 +4,7 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 export PATH="$HOME/tools/apache-maven-3.9.9/bin:$PATH"
+unset MSYS_NO_PATHCONV  # set by aws-env.sh; breaks the Windows mvn launcher
 
 suite="${1:?usage: run-suite.sh <suite> [local|cloud]}"
 env_name="${2:-local}"
@@ -27,7 +28,9 @@ case "$suite" in
     (cd mcp/qa-mcp-server && pnpm lint && pnpm test)
     ;;
   api)
-    (cd tests/api && mvn -B -q test ${api_tags:+-Dcucumber.filter.tags="$api_tags"}) && status=0 || status=$?
+    tag_args=()
+    [ -n "$api_tags" ] && tag_args=("-Dcucumber.filter.tags=$api_tags")
+    (cd tests/api && mvn -B -q test "${tag_args[@]}") && status=0 || status=$?
     cp tests/api/target/surefire-reports/TEST-*.xml reports/junit/api.xml 2>/dev/null || true
     exit $status
     ;;

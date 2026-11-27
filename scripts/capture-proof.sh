@@ -57,7 +57,7 @@ else
   done
 
   alb_suffix=$(aws elbv2 describe-load-balancers --names bank-qa --query 'LoadBalancers[0].LoadBalancerArn' --output text | sed -E 's#.*loadbalancer/##')
-  aws cloudwatch get-metric-widget-image --output text --query MetricWidget \
+  aws cloudwatch get-metric-widget-image --output text --query MetricWidgetImage \
     --metric-widget "{\"metrics\":[[\"AWS/ApplicationELB\",\"RequestCount\",\"LoadBalancer\",\"$alb_suffix\",{\"stat\":\"Sum\"}]],\"period\":60,\"title\":\"ALB request count\",\"width\":900,\"height\":300,\"start\":\"-PT2H\",\"region\":\"$AWS_REGION\"}" \
     | base64 -d > "$dir/screenshots/04-cloudwatch-alb-requests.png" || true
 

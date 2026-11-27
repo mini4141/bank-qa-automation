@@ -33,7 +33,7 @@ variable "name" {
 variable "bedrock_model_id" {
   description = "Bedrock chat model or inference profile id used by inquiry-chat"
   type        = string
-  default     = "apac.anthropic.claude-3-5-sonnet-20241022-v2:0"
+  default     = "apac.amazon.nova-lite-v1:0"
 }
 
 variable "bedrock_embed_model_id" {
@@ -180,7 +180,7 @@ resource "aws_secretsmanager_secret" "db" {
 
 resource "aws_secretsmanager_secret_version" "db" {
   secret_id     = aws_secretsmanager_secret.db.id
-  secret_string = "postgres://bank:${random_password.db.result}@${aws_db_instance.main.address}:5432/bank"
+  secret_string = "postgres://bank:${random_password.db.result}@${aws_db_instance.main.address}:5432/bank?sslmode=no-verify"
 }
 
 resource "aws_secretsmanager_secret" "llm" {

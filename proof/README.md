@@ -29,7 +29,23 @@ Live report: https://mini4141.github.io/bank-qa-automation/ . CI run with all jo
 Defect report for the seeded bug: `docs/defects/DEF-001-fee-rounding.md`. Results summary: `docs/qa-report-phase1.md`.
 
 ## Phase 2: cloud (`phase2-cloud/`)
-Filled in after the AWS run, see below.
+| Artifact | Proves |
+|---|---|
+| `resources.txt` | deployed resources: ALB, four ECS services (1/1 running), RDS instance, secrets, tagged ARNs |
+| `screenshots/01-cloud-allure.png` | Allure report of the suites run against the ALB |
+| `screenshots/02-cloud-web-app.png` | the web app on AWS: account opened, assistant answers from Bedrock with a source link |
+| `screenshots/03-bedrock-eval.png` | LLM eval on Bedrock, all metrics against thresholds |
+| `screenshots/04-cloudwatch-alb-requests.png` | CloudWatch metric image: ALB request count while tests ran |
+| `tests/allure-report-cloud/` | cloud Allure report (serve over HTTP) |
+| `tests/llm-eval-bedrock/` | Bedrock eval report (`report.html`, `report.json`) |
+| `tests/junit/` | JUnit XML of the cloud API run |
+| `logs/drift-mock-vs-bedrock.json` | mock baseline versus Bedrock baseline, metric by metric |
+| `logs/cloud-*.log` | console output of each cloud suite |
+| `logs/cloudwatch-*.log` | CloudWatch Logs of the services (structured JSON, account ids redacted) |
+
+Account ids, tokens and keys are redacted in all logs. Results summary: `docs/qa-report-phase2.md`; defect found in the cloud: `docs/defects/DEF-003-refusal-with-citation.md`.
 
 ## Phase 3: destroy (`phase3-destroy/`)
-Filled in after teardown, see below.
+| Artifact | Proves |
+|---|---|
+| `verify-destroyed.txt` | no ECS cluster, load balancer, target group, RDS instance, secret, ECR repository, log group, NAT gateway or VPC remains. The tagging API still lists a few inactive ECS task definitions and one subnet for a short while after deletion; the direct describe calls above it are authoritative |

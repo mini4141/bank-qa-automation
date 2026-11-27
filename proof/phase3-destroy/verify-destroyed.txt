@@ -1,0 +1,12 @@
+verify-destroyed at 2026-11-27T08:00:09Z, region ap-southeast-2
+OK   ECS cluster bank-qa: none
+OK   Load balancers: none
+OK   Target groups: none
+OK   RDS instances: none
+OK   Secrets: none
+OK   ECR repositories: none
+OK   CloudWatch log groups: none
+OK   NAT gateways: none
+OK   VPCs: none
+Tagging API (may lag a few minutes after deletion): arn:aws:ecs:ap-southeast-2:<ACCOUNT_ID>:service/bank-qa/web	arn:aws:ecs:ap-southeast-2:<ACCOUNT_ID>:task-definition/bank-qa-web:1	arn:aws:ecs:ap-southeast-2:<ACCOUNT_ID>:service/bank-qa/transfers	arn:aws:ecs:ap-southeast-2:<ACCOUNT_ID>:task-definition/bank-qa-accounts:1	arn:aws:ecs:ap-southeast-2:<ACCOUNT_ID>:task-definition/bank-qa-transfers:1	arn:aws:ecs:ap-southeast-2:<ACCOUNT_ID>:task-definition/bank-qa-chat:1	arn:aws:ecs:ap-southeast-2:<ACCOUNT_ID>:service/bank-qa/chat	arn:aws:ec2:ap-southeast-2:<ACCOUNT_ID>:subnet/subnet-0443fd731766a9716	arn:aws:ecs:ap-southeast-2:<ACCOUNT_ID>:cluster/bank-qa	arn:aws:ecs:ap-southeast-2:<ACCOUNT_ID>:service/bank-qa/accounts
+RESULT: nothing billable remains
