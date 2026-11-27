@@ -37,6 +37,7 @@ When("I open a {string} account for {string} on the phone", async (type: string,
 });
 
 Then("the phone shows the account page for {string}", async (name: string) => {
+  await byId("account-name").waitForDisplayed({ timeout: 30_000 });
   await expect(byId("account-name")).toHaveText(name);
 });
 
@@ -60,6 +61,7 @@ When("I transfer {string} dollars to the other account on the phone", async (dol
 });
 
 Then("the phone shows the transfer confirmation with a fee of {string}", async (fee: string) => {
+  await byId("transfer-result").waitForDisplayed({ timeout: 30_000 }); // slow emulator
   await expect(byId("transfer-result")).toHaveText(expect.stringContaining(`Fee ${fee}`));
 });
 
