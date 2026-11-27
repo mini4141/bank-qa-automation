@@ -55,5 +55,5 @@ Then("the answer links to the source {string}", async ({ chat }, title: string) 
 });
 
 Then("the account page looks as expected", async ({ page, accountPage }) => {
-  await expect(page).toHaveScreenshot("account-page.png", { mask: [accountPage.id], fullPage: true });
+  await expect(page).toHaveScreenshot("account-page.png", { mask: [accountPage.id], fullPage: true, stylePath: "snapshot.css" });
 });

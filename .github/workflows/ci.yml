@@ -17,6 +17,7 @@ permissions:
 env:
   SUT_BUG_ROUNDING: ${{ inputs.bug_rounding && '1' || '0' }}
   PNPM_VERSION: 12.3.4
+  MAVEN_OPTS: -Dmaven.wagon.http.retryHandler.count=5 -Dmaven.wagon.httpconnectionManager.ttlSeconds=120
 
 jobs:
   sut-unit:

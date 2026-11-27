@@ -1,0 +1,2 @@
+/* Pin one font so Linux baselines match across the CI runner and the Playwright image. */
+* { font-family: "DejaVu Sans", sans-serif !important; }
