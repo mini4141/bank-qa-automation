@@ -1,11 +1,237 @@
 name: ci
+
 on:
   push:
     branches: [main]
   pull_request:
+  workflow_dispatch:
+    inputs:
+      bug_rounding:
+        description: "Flip the seeded fee-rounding bug (SUT_BUG_ROUNDING=1) to watch the suites catch it"
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+env:
+  SUT_BUG_ROUNDING: ${{ inputs.bug_rounding && '1' || '0' }}
+  PNPM_VERSION: 12.3.4
+
 jobs:
-  scaffold:
+  sut-unit:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: echo scaffold
+      - uses: actions/setup-node@v4
+        with: { node-version: 24 }
+      - run: npm install -g pnpm@${PNPM_VERSION}
+      - uses: astral-sh/setup-uv@v5
+      - name: Install dependencies
+        run: |
+          for dir in sut/accounts-service sut/transfers-service sut/web mcp/qa-mcp-server tests/web tests/mobile; do
+            (cd "$dir" && pnpm install --frozen-lockfile)
+          done
+          (cd sut/inquiry-chat && uv sync --frozen)
+          (cd llm-eval && uv sync --frozen && uv run ruff check .)
+      - name: Lint and unit tests
+        run: scripts/run-suite.sh sut-unit
+      - name: Lint web app and test projects
+        run: |
+          (cd sut/web && pnpm lint)
+          (cd tests/web && pnpm lint)
+          (cd tests/mobile && pnpm lint)
+      - name: Validate Terraform
+        run: |
+          terraform -chdir=infra init -backend=false -input=false
+          terraform -chdir=infra validate
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: junit-sut-unit
+          path: reports/junit
+          if-no-files-found: ignore
+
+  suites:
+    name: ${{ matrix.suite }}
+    needs: sut-unit
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        suite: [api, web, perf, llm-eval]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with: { distribution: temurin, java-version: 21, cache: maven, cache-dependency-path: "tests/*/pom.xml" }
+      - uses: actions/setup-node@v4
+        with: { node-version: 24 }
+      - run: npm install -g pnpm@${PNPM_VERSION}
+      - uses: astral-sh/setup-uv@v5
+      - name: Install suite dependencies
+        run: |
+          case "${{ matrix.suite }}" in
+            web) cd tests/web && pnpm install --frozen-lockfile && pnpm exec playwright install --with-deps chromium webkit ;;
+            llm-eval) cd llm-eval && uv sync --frozen ;;
+            perf) sudo apt-get update -qq && sudo apt-get install -y -qq wrk ;;
+          esac
+      - name: Start the SUT (Docker Compose)
+        run: |
+          docker compose up -d --build --wait
+          scripts/seed.sh
+      - name: Seed test data through the MCP server
+        if: matrix.suite == 'api'
+        run: |
+          mkdir -p reports/logs
+          (cd mcp/qa-mcp-server && pnpm install --frozen-lockfile && node src/ci-client.ts seed) 2>&1 | tee reports/logs/mcp-ci-client-seed.log
+      - name: Run ${{ matrix.suite }} suite
+        env:
+          USERS: "10"
+          RAMP_SECONDS: "10"
+        run: scripts/run-suite.sh ${{ matrix.suite }} local
+      - name: Service logs
+        if: always()
+        run: |
+          mkdir -p reports/logs
+          docker compose logs --no-color > reports/logs/compose-${{ matrix.suite }}.log || true
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: allure-${{ matrix.suite }}
+          path: reports/allure-results/${{ matrix.suite }}
+          if-no-files-found: warn
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reports-${{ matrix.suite }}
+          path: |
+            reports/junit
+            reports/logs
+            reports/gatling
+            reports/wrk
+            reports/llm-eval
+            reports/playwright-html
+            reports/playwright-output
+          if-no-files-found: ignore
+
+  mobile:
+    needs: sut-unit
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with: { distribution: temurin, java-version: 21 }
+      - uses: actions/setup-node@v4
+        with: { node-version: 24 }
+      - run: npm install -g pnpm@${PNPM_VERSION} appium@2.19.0
+      - name: Install Appium UiAutomator2 driver and test dependencies
+        run: |
+          appium driver install uiautomator2
+          (cd tests/mobile && pnpm install --frozen-lockfile)
+      - name: Start the SUT (Docker Compose)
+        run: |
+          docker compose up -d --build --wait
+          scripts/seed.sh
+      - name: Enable KVM
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+      - name: Run mobile web suite on an Android emulator
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 34
+          arch: x86_64
+          target: google_apis
+          profile: pixel_6
+          disable-animations: true
+          script: bash scripts/ci-mobile.sh
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: allure-mobile
+          path: reports/allure-results/mobile
+          if-no-files-found: warn
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reports-mobile
+          path: |
+            reports/mobile-screenshots
+            reports/logs
+          if-no-files-found: ignore
+
+  k8s-api:
+    needs: sut-unit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with: { distribution: temurin, java-version: 21, cache: maven, cache-dependency-path: "tests/api/pom.xml" }
+      - uses: helm/kind-action@v1
+        with: { install_only: true }
+      - name: Deploy the SUT to kind and run the API suite
+        run: |
+          mkdir -p reports/logs
+          scripts/k8s-test.sh 2>&1 | tee reports/logs/k8s-api-job.log
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reports-k8s-api
+          path: |
+            reports/logs
+            reports/junit
+          if-no-files-found: ignore
+
+  report:
+    needs: [suites, mobile, k8s-api]
+    if: always() && needs.sut-unit.result != 'skipped'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 24 }
+      - uses: actions/setup-java@v4
+        with: { distribution: temurin, java-version: 21 }
+      - run: npm install -g pnpm@${PNPM_VERSION}
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: allure-*
+          path: reports/allure-results
+      - name: Fetch history of the previously published report
+        run: |
+          base="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}"
+          mkdir -p reports/allure-history
+          for f in history.json history-trend.json duration-trend.json categories-trend.json retry-trend.json; do
+            curl -fsSL "$base/history/$f" -o "reports/allure-history/$f" || rm -f "reports/allure-history/$f"
+          done
+          curl -fsSL "$base/history.json" -o reports/history.json || echo "[]" > reports/history.json
+      - name: Merge Allure results into one report
+        run: scripts/report.sh ci
+      - name: Summarise through the MCP server
+        run: |
+          mkdir -p reports/logs
+          (cd mcp/qa-mcp-server && pnpm install --frozen-lockfile && node src/ci-client.ts summary) 2>&1 | tee reports/logs/mcp-ci-client-summary.log
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reports-merged
+          path: |
+            reports/allure-report
+            reports/logs
+      - uses: actions/configure-pages@v5
+        if: github.ref == 'refs/heads/main'
+      - uses: actions/upload-pages-artifact@v3
+        if: github.ref == 'refs/heads/main'
+        with: { path: reports/allure-report }
+      - id: deploy
+        if: github.ref == 'refs/heads/main'
+        uses: actions/deploy-pages@v4
