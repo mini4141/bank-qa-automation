@@ -57,11 +57,17 @@ When("I open that account on the phone", async () => {
 When("I transfer {string} dollars to the other account on the phone", async (dollars: string) => {
   await byId("transfer-to").setValue(world.otherId!);
   await byId("transfer-amount").setValue(dollars);
+  await byId("transfer-submit").scrollIntoView({ block: "center" });
   await byId("transfer-submit").click();
 });
 
 Then("the phone shows the transfer confirmation with a fee of {string}", async (fee: string) => {
-  await byId("transfer-result").waitForDisplayed({ timeout: 30_000 }); // slow emulator
+  // slow emulator: wait for the confirmation, but surface the page error if the transfer was rejected
+  await browser.waitUntil(async () => (await byId("transfer-result").isDisplayed()) || (await byId("page-error").isDisplayed()), {
+    timeout: 30_000,
+    timeoutMsg: "neither a transfer confirmation nor an error appeared",
+  });
+  if (await byId("page-error").isDisplayed()) throw new Error(`transfer rejected: ${await byId("page-error").getText()}`);
   await expect(byId("transfer-result")).toHaveText(expect.stringContaining(`Fee ${fee}`));
 });
 
