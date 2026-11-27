@@ -75,7 +75,7 @@ jobs:
           # the runner image ships a Microsoft apt source whose signature is currently rejected
           sudo rm -f /etc/apt/sources.list.d/microsoft-prod.list /etc/apt/sources.list.d/microsoft-prod.sources
           case "${{ matrix.suite }}" in
-            web) cd tests/web && pnpm install --frozen-lockfile && pnpm exec playwright install --with-deps chromium webkit ;;
+            web) sudo apt-get update -qq && sudo apt-get install -y -qq fonts-dejavu-core && cd tests/web && pnpm install --frozen-lockfile && pnpm exec playwright install --with-deps chromium webkit ;;
             llm-eval) cd llm-eval && uv sync --frozen ;;
             perf) sudo apt-get update -qq && sudo apt-get install -y -qq wrk ;;
           esac
