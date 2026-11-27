@@ -1,0 +1,21 @@
+{"id": "qa-01", "question": "How old do I have to be to open a savings or checking account?", "expected_doc": "account-opening"}
+{"id": "qa-02", "question": "What documents do I need to open an account?", "expected_doc": "account-opening"}
+{"id": "qa-03", "question": "What is the minimum opening deposit for an account?", "expected_doc": "account-opening"}
+{"id": "qa-04", "question": "How much is the monthly fee for a checking account?", "expected_doc": "account-opening"}
+{"id": "qa-05", "question": "How long does account approval take?", "expected_doc": "account-opening"}
+{"id": "qa-06", "question": "Can I open an account through LINE?", "expected_doc": "line-opening"}
+{"id": "qa-07", "question": "How does LINE verify my identity when opening an account?", "expected_doc": "line-opening"}
+{"id": "qa-08", "question": "How do I activate an account opened through LINE?", "expected_doc": "line-opening"}
+{"id": "qa-09", "question": "What is cardless ATM withdrawal?", "expected_doc": "cardless-atm"}
+{"id": "qa-10", "question": "How long is a cardless ATM code valid?", "expected_doc": "cardless-atm"}
+{"id": "qa-11", "question": "What is the daily limit for cardless withdrawals?", "expected_doc": "cardless-atm"}
+{"id": "qa-12", "question": "What are the steps to withdraw cash at an ATM without a card?", "expected_doc": "cardless-atm"}
+{"id": "qa-13", "question": "What is the maximum amount of a personal loan?", "expected_doc": "personal-loans"}
+{"id": "qa-14", "question": "What are the eligibility requirements for a personal loan?", "expected_doc": "personal-loans"}
+{"id": "qa-15", "question": "Is there a fee for repaying a personal loan early?", "expected_doc": "personal-loans"}
+{"id": "qa-16", "question": "How much deposit do I need for a home loan?", "expected_doc": "home-loans"}
+{"id": "qa-17", "question": "What documents are needed to apply for a home loan?", "expected_doc": "home-loans"}
+{"id": "qa-18", "question": "Can I fix the interest rate on my home loan?", "expected_doc": "home-loans"}
+{"id": "qa-19", "question": "How much is the fee on a transfer?", "expected_doc": "fees-and-limits"}
+{"id": "qa-20", "question": "What is the daily transfer limit?", "expected_doc": "fees-and-limits"}
+{"id": "qa-21", "question": "What should I do if my debit card is stolen?", "expected_doc": "fees-and-limits"}

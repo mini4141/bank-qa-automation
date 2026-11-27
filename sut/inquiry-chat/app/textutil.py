@@ -3,7 +3,7 @@ import re
 from difflib import SequenceMatcher
 
 STOPWORDS = frozenset(
-    ["a", "an", "and", "are", "as", "at", "be", "by", "can", "do", "does", "for", "from", "how", "i", "if", "in", "is", "it", "me", "my", "of", "on", "or", "so", "the", "then", "there", "this", "to", "up", "was", "we", "what", "when", "where", "which", "who", "why", "will", "with", "you", "your", "please", "tell", "about", "get"]
+    ["a", "an", "and", "are", "as", "at", "be", "by", "can", "do", "does", "for", "from", "how", "i", "if", "in", "is", "it", "me", "my", "of", "on", "or", "so", "the", "then", "there", "this", "to", "up", "was", "we", "what", "when", "where", "which", "who", "why", "will", "with", "you", "your", "please", "tell", "about", "get", "bank", "through", "he", "she", "her", "his", "him", "they", "need"]
 )
 
 

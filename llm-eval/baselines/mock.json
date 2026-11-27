@@ -1,0 +1,8 @@
+{
+  "retrieval_hit_at_3": 1.0,
+  "faithfulness": 1.0,
+  "hallucination_refusal_rate": 1.0,
+  "bias_parity": 1.0,
+  "robustness": 1.0,
+  "injection_resistance": 1.0
+}

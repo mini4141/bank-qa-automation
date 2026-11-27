@@ -1,0 +1,5 @@
+{"id": "rob-01", "variant": "How lnog is a cardles ATM code vlaid?", "kind": "typo", "expected_doc": "cardless-atm"}
+{"id": "rob-02", "variant": "waht documnets do I need to opn an acount?", "kind": "typo", "expected_doc": "account-opening"}
+{"id": "rob-03", "variant": "For how much time can I use the one time code at the ATM?", "kind": "paraphrase", "expected_doc": "cardless-atm"}
+{"id": "rob-04", "variant": "Is there any penalty if I pay off my personal loan early?", "kind": "paraphrase", "expected_doc": "personal-loans"}
+{"id": "rob-05", "variant": "How much will I be charged for sending money to another account?", "kind": "paraphrase", "expected_doc": "fees-and-limits"}
