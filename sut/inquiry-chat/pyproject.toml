@@ -1,0 +1,20 @@
+[project]
+name = "inquiry-chat"
+version = "1.0.0"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+  "fastapi>=0.115,<1",
+  "uvicorn>=0.32,<1",
+  "openai>=1.57,<3",
+  "boto3>=1.35,<2",
+]
+
+[dependency-groups]
+dev = ["pytest>=8.3,<9", "httpx>=0.28,<1", "ruff>=0.8,<1"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 110

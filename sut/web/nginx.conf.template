@@ -1,0 +1,14 @@
+server {
+  listen 80;
+  root /usr/share/nginx/html;
+  index index.html;
+
+  location /healthz {
+    default_type application/json;
+    return 200 '{"status":"ok","service":"web"}';
+  }
+  location /api/accounts/ { proxy_pass http://${ACCOUNTS_UPSTREAM}/; }
+  location /api/transfers/ { proxy_pass http://${TRANSFERS_UPSTREAM}/; }
+  location /api/chat/ { proxy_pass http://${CHAT_UPSTREAM}/; }
+  location / { try_files $uri /index.html; }
+}

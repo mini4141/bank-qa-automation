@@ -1,0 +1,85 @@
+name: bank-qa
+
+x-node-health: &node-health
+  interval: 5s
+  timeout: 3s
+  retries: 20
+
+services:
+  postgres:
+    image: postgres:16.4-alpine
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-bank}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-bank_local_pw}
+      POSTGRES_DB: ${POSTGRES_DB:-bank}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U bank -d bank"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+
+  accounts:
+    build: ./sut/accounts-service
+    environment:
+      DATABASE_URL: postgres://${POSTGRES_USER:-bank}:${POSTGRES_PASSWORD:-bank_local_pw}@postgres:5432/${POSTGRES_DB:-bank}
+      PORT: "3001"
+    ports: ["3001:3001"]
+    depends_on:
+      postgres: { condition: service_healthy }
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:3001/healthz"]
+      <<: *node-health
+
+  transfers:
+    build: ./sut/transfers-service
+    environment:
+      DATABASE_URL: postgres://${POSTGRES_USER:-bank}:${POSTGRES_PASSWORD:-bank_local_pw}@postgres:5432/${POSTGRES_DB:-bank}
+      ACCOUNTS_URL: http://accounts:3001
+      PORT: "3002"
+      SUT_BUG_ROUNDING: ${SUT_BUG_ROUNDING:-0}
+    ports: ["3002:3002"]
+    depends_on:
+      postgres: { condition: service_healthy }
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:3002/healthz"]
+      <<: *node-health
+
+  mock-llm:
+    build:
+      context: ./sut
+      dockerfile: inquiry-chat/Dockerfile
+    command: ["uvicorn", "app.mock_llm:app", "--host", "0.0.0.0", "--port", "3004"]
+    ports: ["3004:3004"]
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request as u; u.urlopen('http://127.0.0.1:3004/healthz')"]
+      <<: *node-health
+
+  chat:
+    build:
+      context: ./sut
+      dockerfile: inquiry-chat/Dockerfile
+    environment:
+      LLM_PROVIDER: mock
+      LLM_BASE_URL: http://mock-llm:3004/v1
+      LLM_API_KEY: ${LLM_API_KEY:-mock-key-not-a-secret}
+    ports: ["3003:3003"]
+    depends_on:
+      mock-llm: { condition: service_healthy }
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request as u; u.urlopen('http://127.0.0.1:3003/healthz')"]
+      <<: *node-health
+
+  web:
+    build: ./sut/web
+    environment:
+      ACCOUNTS_UPSTREAM: accounts:3001
+      TRANSFERS_UPSTREAM: transfers:3002
+      CHAT_UPSTREAM: chat:3003
+    ports: ["8080:80"]
+    depends_on:
+      accounts: { condition: service_healthy }
+      transfers: { condition: service_healthy }
+      chat: { condition: service_healthy }
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1/healthz"]
+      <<: *node-health
