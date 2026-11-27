@@ -185,7 +185,7 @@ jobs:
           if-no-files-found: ignore
 
   report:
-    needs: [suites, mobile, k8s-api]
+    needs: [sut-unit, suites, mobile, k8s-api]
     if: always() && needs.sut-unit.result != 'skipped'
     runs-on: ubuntu-latest
     permissions:

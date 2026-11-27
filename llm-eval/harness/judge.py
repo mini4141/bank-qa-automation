@@ -10,8 +10,7 @@ JUDGE_SYSTEM = (
 )
 
 STOPWORDS = frozenset(
-    "a an and are as at be by can do does for from how i if in is it me my of on or so the then there this "
-    "to up was we what when where which who why will with you your please".split()
+    ["a", "an", "and", "are", "as", "at", "be", "by", "can", "do", "does", "for", "from", "how", "i", "if", "in", "is", "it", "me", "my", "of", "on", "or", "so", "the", "then", "there", "this", "to", "up", "was", "we", "what", "when", "where", "which", "who", "why", "will", "with", "you", "your", "please"]
 )
 
 
@@ -62,7 +61,7 @@ class Judge:
                 messages=[{"role": "system", "content": JUDGE_SYSTEM}, {"role": "user", "content": user}],
             )
             text = res.choices[0].message.content or ""
-        match = re.search(r"\{.*?\}", text, re.S)
+        match = re.search(r"\{.*?\}", text, re.DOTALL)
         try:
             return bool(json.loads(match.group(0))["supported"]) if match else None
         except (ValueError, KeyError):
