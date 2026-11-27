@@ -72,6 +72,8 @@ jobs:
       - uses: astral-sh/setup-uv@v5
       - name: Install suite dependencies
         run: |
+          # the runner image ships a Microsoft apt source whose signature is currently rejected
+          sudo rm -f /etc/apt/sources.list.d/microsoft-prod.list /etc/apt/sources.list.d/microsoft-prod.sources
           case "${{ matrix.suite }}" in
             web) cd tests/web && pnpm install --frozen-lockfile && pnpm exec playwright install --with-deps chromium webkit ;;
             llm-eval) cd llm-eval && uv sync --frozen ;;

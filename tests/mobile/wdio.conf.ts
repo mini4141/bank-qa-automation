@@ -17,6 +17,7 @@ export const config: WebdriverIO.Config = {
       "appium:deviceName": "Android Emulator",
       "appium:chromedriverAutodownload": true,
       "appium:newCommandTimeout": 240,
+      "wdio:enforceWebDriverClassic": true, // Appium chromedriver sessions do not speak WebDriver BiDi
       "goog:chromeOptions": { args: ["--no-first-run", "--disable-fre", "--no-default-browser-check"] },
     } as unknown as WebdriverIO.Capabilities,
   ],
