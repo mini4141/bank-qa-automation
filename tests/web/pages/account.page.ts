@@ -3,6 +3,10 @@ import { expect, type Page } from "@playwright/test";
 export class AccountPage {
   constructor(private readonly page: Page) {}
 
+  get summary() {
+    return this.page.getByTestId("account-summary");
+  }
+
   get name() {
     return this.page.getByTestId("account-name");
   }

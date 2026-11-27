@@ -54,6 +54,6 @@ Then("the answer links to the source {string}", async ({ chat }, title: string) 
   await expect(link).toHaveAttribute("href", /\/api\/chat\/docs\/cardless-atm$/);
 });
 
-Then("the account page looks as expected", async ({ page, accountPage }) => {
-  await expect(page).toHaveScreenshot("account-page.png", { mask: [accountPage.id], fullPage: true, stylePath: "snapshot.css" });
+Then("the account page looks as expected", async ({ accountPage }) => {
+  await expect(accountPage.summary).toHaveScreenshot("account-page.png", { mask: [accountPage.id], stylePath: "snapshot.css" });
 });
