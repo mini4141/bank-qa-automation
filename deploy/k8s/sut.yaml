@@ -1,0 +1,184 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: db
+type: Opaque
+stringData:
+  password: bank_local_pw
+  url: postgres://bank:bank_local_pw@postgres:5432/bank
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres
+spec:
+  replicas: 1
+  selector: { matchLabels: { app: postgres } }
+  template:
+    metadata: { labels: { app: postgres } }
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:16.4-alpine
+          env:
+            - { name: POSTGRES_USER, value: bank }
+            - { name: POSTGRES_DB, value: bank }
+            - name: POSTGRES_PASSWORD
+              valueFrom: { secretKeyRef: { name: db, key: password } }
+          ports: [{ containerPort: 5432 }]
+          readinessProbe:
+            exec: { command: ["pg_isready", "-U", "bank", "-d", "bank"] }
+            periodSeconds: 3
+---
+apiVersion: v1
+kind: Service
+metadata: { name: postgres }
+spec:
+  selector: { app: postgres }
+  ports: [{ port: 5432 }]
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata: { name: accounts }
+spec:
+  replicas: 1
+  selector: { matchLabels: { app: accounts } }
+  template:
+    metadata: { labels: { app: accounts } }
+    spec:
+      containers:
+        - name: accounts
+          image: bank-qa/accounts:ci
+          imagePullPolicy: IfNotPresent
+          env:
+            - { name: PORT, value: "3001" }
+            - name: DATABASE_URL
+              valueFrom: { secretKeyRef: { name: db, key: url } }
+          ports: [{ containerPort: 3001 }]
+          readinessProbe:
+            httpGet: { path: /healthz, port: 3001 }
+            periodSeconds: 3
+---
+apiVersion: v1
+kind: Service
+metadata: { name: accounts }
+spec:
+  type: NodePort
+  selector: { app: accounts }
+  ports: [{ port: 3001, nodePort: 30001 }]
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata: { name: transfers }
+spec:
+  replicas: 1
+  selector: { matchLabels: { app: transfers } }
+  template:
+    metadata: { labels: { app: transfers } }
+    spec:
+      containers:
+        - name: transfers
+          image: bank-qa/transfers:ci
+          imagePullPolicy: IfNotPresent
+          env:
+            - { name: PORT, value: "3002" }
+            - { name: ACCOUNTS_URL, value: "http://accounts:3001" }
+            - name: DATABASE_URL
+              valueFrom: { secretKeyRef: { name: db, key: url } }
+          ports: [{ containerPort: 3002 }]
+          readinessProbe:
+            httpGet: { path: /healthz, port: 3002 }
+            periodSeconds: 3
+---
+apiVersion: v1
+kind: Service
+metadata: { name: transfers }
+spec:
+  type: NodePort
+  selector: { app: transfers }
+  ports: [{ port: 3002, nodePort: 30002 }]
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata: { name: mock-llm }
+spec:
+  replicas: 1
+  selector: { matchLabels: { app: mock-llm } }
+  template:
+    metadata: { labels: { app: mock-llm } }
+    spec:
+      containers:
+        - name: mock-llm
+          image: bank-qa/chat:ci
+          imagePullPolicy: IfNotPresent
+          command: ["uvicorn", "app.mock_llm:app", "--host", "0.0.0.0", "--port", "3004"]
+          ports: [{ containerPort: 3004 }]
+          readinessProbe:
+            httpGet: { path: /healthz, port: 3004 }
+            periodSeconds: 3
+---
+apiVersion: v1
+kind: Service
+metadata: { name: mock-llm }
+spec:
+  selector: { app: mock-llm }
+  ports: [{ port: 3004 }]
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata: { name: chat }
+spec:
+  replicas: 1
+  selector: { matchLabels: { app: chat } }
+  template:
+    metadata: { labels: { app: chat } }
+    spec:
+      containers:
+        - name: chat
+          image: bank-qa/chat:ci
+          imagePullPolicy: IfNotPresent
+          env:
+            - { name: LLM_PROVIDER, value: mock }
+            - { name: LLM_BASE_URL, value: "http://mock-llm:3004/v1" }
+          ports: [{ containerPort: 3003 }]
+          readinessProbe:
+            httpGet: { path: /healthz, port: 3003 }
+            periodSeconds: 3
+---
+apiVersion: v1
+kind: Service
+metadata: { name: chat }
+spec:
+  type: NodePort
+  selector: { app: chat }
+  ports: [{ port: 3003, nodePort: 30003 }]
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata: { name: web }
+spec:
+  replicas: 1
+  selector: { matchLabels: { app: web } }
+  template:
+    metadata: { labels: { app: web } }
+    spec:
+      containers:
+        - name: web
+          image: bank-qa/web:ci
+          imagePullPolicy: IfNotPresent
+          env:
+            - { name: ACCOUNTS_UPSTREAM, value: "accounts:3001" }
+            - { name: TRANSFERS_UPSTREAM, value: "transfers:3002" }
+            - { name: CHAT_UPSTREAM, value: "chat:3003" }
+          ports: [{ containerPort: 80 }]
+          readinessProbe:
+            httpGet: { path: /healthz, port: 80 }
+            periodSeconds: 3
+---
+apiVersion: v1
+kind: Service
+metadata: { name: web }
+spec:
+  type: NodePort
+  selector: { app: web }
+  ports: [{ port: 80, nodePort: 30080 }]

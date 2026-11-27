@@ -1,0 +1,107 @@
+
+Running 10 tests using 2 workers
+
+  ok  1 [chromium] › .features-gen\features\banking.feature.spec.js:6:7 › Online banking › Open an account via the UI @regression @web @REQ-WEB-1 @smoke (1.7s)
+  ok  2 [webkit] › .features-gen\features\banking.feature.spec.js:6:7 › Online banking › Open an account via the UI @regression @web @REQ-WEB-1 @smoke (3.7s)
+  x   3 [chromium] › .features-gen\features\banking.feature.spec.js:12:7 › Online banking › Transfer money via the UI and see the fee @regression @web @REQ-WEB-2 (6.5s)
+  x   4 [webkit] › .features-gen\features\banking.feature.spec.js:12:7 › Online banking › Transfer money via the UI and see the fee @regression @web @REQ-WEB-2 (8.2s)
+  ok  5 [chromium] › .features-gen\features\banking.feature.spec.js:20:7 › Online banking › The transaction list shows the transfer @regression @web @REQ-WEB-3 (1.4s)
+  ok  6 [chromium] › .features-gen\features\banking.feature.spec.js:27:7 › Online banking › The chat answer shows a citation link @regression @web @REQ-WEB-4 (834ms)
+  ok  7 [chromium] › .features-gen\features\banking.feature.spec.js:33:7 › Online banking › Visual snapshot of the account page @regression @web @REQ-WEB-5 @visual (1.0s)
+  ok  8 [webkit] › .features-gen\features\banking.feature.spec.js:20:7 › Online banking › The transaction list shows the transfer @regression @web @REQ-WEB-3 (2.7s)
+  ok  9 [webkit] › .features-gen\features\banking.feature.spec.js:27:7 › Online banking › The chat answer shows a citation link @regression @web @REQ-WEB-4 (2.4s)
+  ok 10 [webkit] › .features-gen\features\banking.feature.spec.js:33:7 › Online banking › Visual snapshot of the account page @regression @web @REQ-WEB-5 @visual (1.5s)
+
+
+  1) [chromium] › .features-gen\features\banking.feature.spec.js:12:7 › Online banking › Transfer money via the UI and see the fee @regression @web @REQ-WEB-2 › Then the transfer confirmation shows a fee of "$0.15" 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoContainText[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator: getByTestId('transfer-result')
+    Expected substring: [32m"Fee $0.1[7m5[27m"[39m
+    Received string:    [31m"[7mTransfer sent. [27mFee $0.1[7m6[27m"[39m
+    Timeout: 5000ms
+
+    Call log:
+    [2m  - Expect "toContainText" with timeout 5000ms[22m
+    [2m  - waiting for getByTestId('transfer-result')[22m
+    [2m    7 × locator resolved to <p class="ok" data-testid="transfer-result">Transfer sent. Fee $0.16</p>[22m
+    [2m      - unexpected value "Transfer sent. Fee $0.16"[22m
+
+
+       at ..\steps\steps.ts:34
+
+      32 |
+      33 | Then("the transfer confirmation shows a fee of {string}", async ({ accountPage }, fee: string) => {
+    > 34 |   await expect(accountPage.transferResult).toContainText(`Fee ${fee}`);
+         |                                            ^
+      35 | });
+      36 |
+      37 | Then("my balance is {string}", async ({ accountPage }, balance: string) => {
+        at Object.<anonymous> (C:\Users\ThinkPad\Pictures\mmvie-v2\reqs\12-bank-qa-automation\tests\web\steps\steps.ts:34:44)
+        at C:\Users\ThinkPad\Pictures\mmvie-v2\reqs\12-bank-qa-automation\tests\web\node_modules\.pnpm\playwright-bdd@8.5.1_@playwright+test@1.57.0\node_modules\playwright-bdd\src\runtime\bddStepInvoker.ts:59:60
+        at BddStepInvoker.invoke (C:\Users\ThinkPad\Pictures\mmvie-v2\reqs\12-bank-qa-automation\tests\web\node_modules\.pnpm\playwright-bdd@8.5.1_@playwright+test@1.57.0\node_modules\playwright-bdd\src\runtime\bddStepInvoker.ts:53:5)
+        at C:\Users\ThinkPad\Pictures\mmvie-v2\reqs\12-bank-qa-automation\tests\web\.features-gen\features\banking.feature.spec.js:16:5
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\reports\playwright-output\features-banking.feature-O-2d183--via-the-UI-and-see-the-fee-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\reports\playwright-output\features-banking.feature-O-2d183--via-the-UI-and-see-the-fee-chromium\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\reports\playwright-output\features-banking.feature-O-2d183--via-the-UI-and-see-the-fee-chromium\trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ..\..\reports\playwright-output\features-banking.feature-O-2d183--via-the-UI-and-see-the-fee-chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [webkit] › .features-gen\features\banking.feature.spec.js:12:7 › Online banking › Transfer money via the UI and see the fee @regression @web @REQ-WEB-2 › Then the transfer confirmation shows a fee of "$0.15" 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoContainText[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator: getByTestId('transfer-result')
+    Expected substring: [32m"Fee $0.1[7m5[27m"[39m
+    Received string:    [31m"[7mTransfer sent. [27mFee $0.1[7m6[27m"[39m
+    Timeout: 5000ms
+
+    Call log:
+    [2m  - Expect "toContainText" with timeout 5000ms[22m
+    [2m  - waiting for getByTestId('transfer-result')[22m
+    [2m    8 × locator resolved to <p class="ok" data-testid="transfer-result">Transfer sent. Fee $0.16</p>[22m
+    [2m      - unexpected value "Transfer sent. Fee $0.16"[22m
+
+
+       at ..\steps\steps.ts:34
+
+      32 |
+      33 | Then("the transfer confirmation shows a fee of {string}", async ({ accountPage }, fee: string) => {
+    > 34 |   await expect(accountPage.transferResult).toContainText(`Fee ${fee}`);
+         |                                            ^
+      35 | });
+      36 |
+      37 | Then("my balance is {string}", async ({ accountPage }, balance: string) => {
+        at Object.<anonymous> (C:\Users\ThinkPad\Pictures\mmvie-v2\reqs\12-bank-qa-automation\tests\web\steps\steps.ts:34:44)
+        at C:\Users\ThinkPad\Pictures\mmvie-v2\reqs\12-bank-qa-automation\tests\web\node_modules\.pnpm\playwright-bdd@8.5.1_@playwright+test@1.57.0\node_modules\playwright-bdd\src\runtime\bddStepInvoker.ts:59:60
+        at BddStepInvoker.invoke (C:\Users\ThinkPad\Pictures\mmvie-v2\reqs\12-bank-qa-automation\tests\web\node_modules\.pnpm\playwright-bdd@8.5.1_@playwright+test@1.57.0\node_modules\playwright-bdd\src\runtime\bddStepInvoker.ts:53:5)
+        at C:\Users\ThinkPad\Pictures\mmvie-v2\reqs\12-bank-qa-automation\tests\web\.features-gen\features\banking.feature.spec.js:16:5
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\reports\playwright-output\features-banking.feature-O-2d183--via-the-UI-and-see-the-fee-webkit\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\reports\playwright-output\features-banking.feature-O-2d183--via-the-UI-and-see-the-fee-webkit\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\reports\playwright-output\features-banking.feature-O-2d183--via-the-UI-and-see-the-fee-webkit\trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ..\..\reports\playwright-output\features-banking.feature-O-2d183--via-the-UI-and-see-the-fee-webkit\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2 failed
+    [chromium] › .features-gen\features\banking.feature.spec.js:12:7 › Online banking › Transfer money via the UI and see the fee @regression @web @REQ-WEB-2 
+    [webkit] › .features-gen\features\banking.feature.spec.js:12:7 › Online banking › Transfer money via the UI and see the fee @regression @web @REQ-WEB-2 
+  8 passed (28.4s)

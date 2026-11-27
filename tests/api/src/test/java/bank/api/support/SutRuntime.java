@@ -12,7 +12,11 @@ public final class SutRuntime {
 
     public static void stopAccounts() {
         switch (Config.runtime()) {
-            case "k8s" -> run("kubectl", "scale", "deployment/accounts", "--replicas=0");
+            case "k8s" -> {
+                run("kubectl", "scale", "deployment/accounts", "--replicas=0");
+                // scaling is asynchronous: wait until the pod is really gone (a no-match error means it already is)
+                runLenient("kubectl", "wait", "--for=delete", "pod", "-l", "app=accounts", "--timeout=60s");
+            }
             default -> run("docker", "compose", "-p", "bank-qa", "-f", composeFile(), "stop", "accounts");
         }
     }
@@ -45,6 +49,16 @@ public final class SutRuntime {
 
     private static String composeFile() {
         return Path.of("..", "..", "docker-compose.yml").toAbsolutePath().normalize().toString();
+    }
+
+    private static void runLenient(String... command) {
+        try {
+            new ProcessBuilder(List.of(command)).inheritIO().start().waitFor();
+        } catch (IOException e) {
+            throw new IllegalStateException(e);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 
     private static void run(String... command) {
