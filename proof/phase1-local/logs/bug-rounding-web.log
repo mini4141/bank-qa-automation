@@ -1,15 +1,15 @@
 
 Running 10 tests using 2 workers
 
-  ok  1 [chromium] › .features-gen\features\banking.feature.spec.js:6:7 › Online banking › Open an account via the UI @regression @web @REQ-WEB-1 @smoke (1.7s)
-  ok  2 [webkit] › .features-gen\features\banking.feature.spec.js:6:7 › Online banking › Open an account via the UI @regression @web @REQ-WEB-1 @smoke (3.7s)
-  x   3 [chromium] › .features-gen\features\banking.feature.spec.js:12:7 › Online banking › Transfer money via the UI and see the fee @regression @web @REQ-WEB-2 (6.5s)
-  x   4 [webkit] › .features-gen\features\banking.feature.spec.js:12:7 › Online banking › Transfer money via the UI and see the fee @regression @web @REQ-WEB-2 (8.2s)
-  ok  5 [chromium] › .features-gen\features\banking.feature.spec.js:20:7 › Online banking › The transaction list shows the transfer @regression @web @REQ-WEB-3 (1.4s)
-  ok  6 [chromium] › .features-gen\features\banking.feature.spec.js:27:7 › Online banking › The chat answer shows a citation link @regression @web @REQ-WEB-4 (834ms)
-  ok  7 [chromium] › .features-gen\features\banking.feature.spec.js:33:7 › Online banking › Visual snapshot of the account page @regression @web @REQ-WEB-5 @visual (1.0s)
-  ok  8 [webkit] › .features-gen\features\banking.feature.spec.js:20:7 › Online banking › The transaction list shows the transfer @regression @web @REQ-WEB-3 (2.7s)
-  ok  9 [webkit] › .features-gen\features\banking.feature.spec.js:27:7 › Online banking › The chat answer shows a citation link @regression @web @REQ-WEB-4 (2.4s)
+  ok  1 [chromium] › .features-gen\features\banking.feature.spec.js:6:7 › Online banking › Open an account via the UI @regression @web @REQ-WEB-1 @smoke (1.1s)
+  ok  2 [webkit] › .features-gen\features\banking.feature.spec.js:6:7 › Online banking › Open an account via the UI @regression @web @REQ-WEB-1 @smoke (2.6s)
+  x   3 [chromium] › .features-gen\features\banking.feature.spec.js:12:7 › Online banking › Transfer money via the UI and see the fee @regression @web @REQ-WEB-2 (5.9s)
+  x   4 [webkit] › .features-gen\features\banking.feature.spec.js:12:7 › Online banking › Transfer money via the UI and see the fee @regression @web @REQ-WEB-2 (7.0s)
+  ok  5 [chromium] › .features-gen\features\banking.feature.spec.js:20:7 › Online banking › The transaction list shows the transfer @regression @web @REQ-WEB-3 (1.2s)
+  ok  6 [chromium] › .features-gen\features\banking.feature.spec.js:27:7 › Online banking › The chat answer shows a citation link @regression @web @REQ-WEB-4 (571ms)
+  ok  7 [chromium] › .features-gen\features\banking.feature.spec.js:33:7 › Online banking › Visual snapshot of the account page @regression @web @REQ-WEB-5 @visual (610ms)
+  ok  8 [webkit] › .features-gen\features\banking.feature.spec.js:20:7 › Online banking › The transaction list shows the transfer @regression @web @REQ-WEB-3 (1.9s)
+  ok  9 [webkit] › .features-gen\features\banking.feature.spec.js:27:7 › Online banking › The chat answer shows a citation link @regression @web @REQ-WEB-4 (1.5s)
   ok 10 [webkit] › .features-gen\features\banking.feature.spec.js:33:7 › Online banking › Visual snapshot of the account page @regression @web @REQ-WEB-5 @visual (1.5s)
 
 
@@ -25,7 +25,7 @@ Running 10 tests using 2 workers
     Call log:
     [2m  - Expect "toContainText" with timeout 5000ms[22m
     [2m  - waiting for getByTestId('transfer-result')[22m
-    [2m    7 × locator resolved to <p class="ok" data-testid="transfer-result">Transfer sent. Fee $0.16</p>[22m
+    [2m    6 × locator resolved to <p class="ok" data-testid="transfer-result">Transfer sent. Fee $0.16</p>[22m
     [2m      - unexpected value "Transfer sent. Fee $0.16"[22m
 
 
@@ -104,4 +104,4 @@ Running 10 tests using 2 workers
   2 failed
     [chromium] › .features-gen\features\banking.feature.spec.js:12:7 › Online banking › Transfer money via the UI and see the fee @regression @web @REQ-WEB-2 
     [webkit] › .features-gen\features\banking.feature.spec.js:12:7 › Online banking › Transfer money via the UI and see the fee @regression @web @REQ-WEB-2 
-  8 passed (28.4s)
+  8 passed (23.8s)

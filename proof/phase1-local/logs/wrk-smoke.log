@@ -1,0 +1,13 @@
+Running 10s test @ http://host.docker.internal:3001/accounts/59393266-3b2e-4ebe-a7cb-b5ef82bcd645
+  2 threads and 20 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency    16.65ms    7.51ms 152.02ms   90.49%
+    Req/Sec   615.12    130.75     0.86k    70.00%
+  Latency Distribution
+     50%   15.30ms
+     75%   18.77ms
+     90%   22.87ms
+     99%   41.49ms
+  12260 requests in 10.02s, 3.16MB read
+Requests/sec:   1223.26
+Transfer/sec:    322.54KB

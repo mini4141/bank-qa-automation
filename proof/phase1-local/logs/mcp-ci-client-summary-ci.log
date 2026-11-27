@@ -1,0 +1,47 @@
+? Verifying lockfile against supply-chain policies (95 entries)...
+Packages are hard linked from the content-addressable store to the virtual store.
+  Content-addressable store is at: /home/runner/.local/share/pnpm/store/v11
+  Virtual store is at:             node_modules/.pnpm
+✓ Lockfile passes supply-chain policies (95 entries in 667ms)
+Lockfile is up to date, resolution step is skipped
+Packages: +95
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Progress: resolved 95, reused 0, downloaded 95, added 95, done
+
+dependencies:
++ @modelcontextprotocol/sdk 1.32.2
++ zod 3.25.76
+
+devDependencies:
++ @types/node 24.19.4
++ typescript 5.9.3
+
+Done in 691ms using pnpm v12.3.4
+[mcp] connected, tools: seed_test_data, run_suite, get_report_summary, list_flaky_tests
+[mcp] tools/call get_report_summary {}
+[mcp] get_report_summary -> {
+  "total": 37,
+  "passed": 37,
+  "failed": 0,
+  "broken": 0,
+  "skipped": 0,
+  "passRate": 100
+}
+[mcp] tools/call list_flaky_tests {"lastRuns":10}
+[mcp] list_flaky_tests -> {
+  "lastRuns": 10,
+  "flaky": [
+    "features/banking.feature.spec.js › Online banking › Visual snapshot of the account page",
+    "features/mobile-web.feature#Mobile web banking Ask the assistant on a phone",
+    "features/mobile-web.feature#Mobile web banking Open an account on a phone",
+    "features/mobile-web.feature#Mobile web banking Transfer money on a phone"
+  ]
+}
+## Test results (via MCP `get_report_summary`)
+
+| Total | Passed | Failed | Broken | Skipped | Pass rate |
+|---|---|---|---|---|---|
+| 37 | 37 | 0 | 0 | 0 | 100% |
+
+Flaky tests in the last runs: features/banking.feature.spec.js › Online banking › Visual snapshot of the account page, features/mobile-web.feature#Mobile web banking Ask the assistant on a phone, features/mobile-web.feature#Mobile web banking Open an account on a phone, features/mobile-web.feature#Mobile web banking Transfer money on a phone
+

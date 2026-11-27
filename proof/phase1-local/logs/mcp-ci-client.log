@@ -1,0 +1,40 @@
+[mcp] connected, tools: seed_test_data, run_suite, get_report_summary, list_flaky_tests
+[mcp] tools/call seed_test_data {"profile":"demo"}
+[mcp] seed_test_data -> {
+  "profile": "demo",
+  "accounts": [
+    {
+      "id": "cfb03849-6205-47c7-8a29-e780d3557500",
+      "name": "Alice Demo",
+      "balanceMinor": 500000
+    },
+    {
+      "id": "c03186dd-ab18-4700-821c-25c395d27707",
+      "name": "Bob Demo",
+      "balanceMinor": 120000
+    }
+  ]
+}
+[mcp] connected, tools: seed_test_data, run_suite, get_report_summary, list_flaky_tests
+[mcp] tools/call get_report_summary {}
+[mcp] get_report_summary -> {
+  "total": 34,
+  "passed": 34,
+  "failed": 0,
+  "broken": 0,
+  "skipped": 0,
+  "passRate": 100
+}
+[mcp] tools/call list_flaky_tests {"lastRuns":10}
+[mcp] list_flaky_tests -> {
+  "lastRuns": 10,
+  "flaky": []
+}
+## Test results (via MCP `get_report_summary`)
+
+| Total | Passed | Failed | Broken | Skipped | Pass rate |
+|---|---|---|---|---|---|
+| 34 | 34 | 0 | 0 | 0 | 100% |
+
+Flaky tests in the last runs: none
+
