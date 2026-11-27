@@ -57,8 +57,8 @@ When("I open that account on the phone", async () => {
 When("I transfer {string} dollars to the other account on the phone", async (dollars: string) => {
   await byId("transfer-to").setValue(world.otherId!);
   await byId("transfer-amount").setValue(dollars);
-  await byId("transfer-submit").scrollIntoView({ block: "center" });
-  await byId("transfer-submit").click();
+  // Enter submits the form like the phone keyboard "go" key; the on-screen keyboard can cover the button
+  await browser.keys("Enter");
 });
 
 Then("the phone shows the transfer confirmation with a fee of {string}", async (fee: string) => {
