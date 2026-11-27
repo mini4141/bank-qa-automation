@@ -29,7 +29,9 @@ export function toTransfer(row: Row) {
 export function buildApp(db: Db, accounts: AccountsClient, prefix = ""): FastifyInstance {
   const app = Fastify({ logger: { level: process.env.LOG_LEVEL ?? "info" } });
 
-  app.get("/healthz", async () => ({ status: "ok", service: "transfers-service" }));
+  const health = async () => ({ status: "ok", service: "transfers-service" });
+  app.get("/healthz", health);
+  if (prefix) app.get(`${prefix}/healthz`, health);
 
   app.register(
     async (r) => {

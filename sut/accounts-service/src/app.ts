@@ -22,7 +22,9 @@ export function isPositiveInt(value: unknown): value is number {
 export function buildApp(db: Db, prefix = ""): FastifyInstance {
   const app = Fastify({ logger: { level: process.env.LOG_LEVEL ?? "info" } });
 
-  app.get("/healthz", async () => ({ status: "ok", service: "accounts-service" }));
+  const health = async () => ({ status: "ok", service: "accounts-service" });
+  app.get("/healthz", health);
+  if (prefix) app.get(`${prefix}/healthz`, health);
 
   app.register(
     async (r) => {

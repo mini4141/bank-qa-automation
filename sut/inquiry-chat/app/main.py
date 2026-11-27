@@ -54,6 +54,7 @@ app = FastAPI(title="inquiry-chat", lifespan=lifespan)
 
 
 @app.get("/healthz")
+@app.get(f"{PREFIX}/healthz")
 def healthz():
     return {"status": "ok", "service": "inquiry-chat"}
 
